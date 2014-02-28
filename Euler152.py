@@ -2,7 +2,7 @@ from fractions import Fraction
 
 
 def solutions(target,A):
-	print target,len(A)
+	print target,len(A )
 	if sum(A) > target and A[-1] < target:
 		output = []
 		for i,a in enumerate(A):
