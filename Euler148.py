@@ -9,6 +9,6 @@ def ncr(n, r):
 
 
 
-for n in range(1,1000):
-	A = [int(min(ncr(n,s) %7,1)) for s in range(0,n+1)]
+for n in xrange(0,1000):
+	A = [int(min(ncr(n,s) %7,1)) for s in range(0,n+1)] 
 	print n,sum(A)
