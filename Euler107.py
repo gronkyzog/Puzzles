@@ -21,6 +21,7 @@ for X in csvreader:
 
 A = numpy.array(network)
 
+
 nodes = [0]
 connections = []
 newnodes = getnewavailable(A,nodes)
