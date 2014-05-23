@@ -1,12 +1,12 @@
-import itertools
+import itertools 
+import math
+def ncr(n,r):
+	return math.factorial(n)/(math.factorial(r)*math.factorial(n-r))
+
+def count(n):
+	return ncr(26,n)*(2**n - n -1)
 
 
-n = 4
+A = [count(n) for n in range(1,27)]	
 
-counter =0
-for X in itertools.permutations(range(1,n+1),n):
-	 Y,Z = X[1:],X[:-1]
-	 k = sum([1 for y,z in zip(X,Y) if y<z])
-	 if k==1:
-	 	counter +=1
-print counter
+print max(A)
