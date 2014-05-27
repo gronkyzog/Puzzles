@@ -1,9 +1,5 @@
 import itertools 
 
-
-
-
-
 counter = 0
 for i,(x1,x2,x3,x4) in enumerate(itertools.product(range(10),repeat=4)):
 	s = x1+x2+x3+x4
