@@ -11,15 +11,29 @@ def pythagoreantripples(length_max):
  			if gcd(m,n)!=1 or (m-n) % 2 ==0:
  				continue
 
- 			for k in range(1,length_max):
-	 			a = k*2*m*n
-	 			b = k*m**2 - n**2
-	 			c = k*m**2 + n**2
-	 			output.append((a,b,c)) 
+ 			ap = 2*m*n
+ 			bp = m**2 - n**2
+ 			cp = m**2 + n**2
+ 			if ap > length_max:
+ 				break
+ 			
+ 			k=1
+ 			while True:
+ 				a,b,c = k*ap,k*bp,k*cp
+ 				if a> length_max or b > length_max:
+ 					break
+ 				output.append((a,b,c))
+ 				k+=1
+
+
 
 
 
  	return output
 
 
-print pythagoreantripples(10)
+output = pythagoreantripples(100)
+
+for x in output:
+	if x[0]==12 or x[1]==12:
+		print x
