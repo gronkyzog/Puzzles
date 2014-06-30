@@ -14,26 +14,25 @@ def pythagoreantripples(length_max):
  			ap = 2*m*n
  			bp = m**2 - n**2
  			cp = m**2 + n**2
- 			if ap > length_max:
- 				break
  			
  			k=1
  			while True:
  				a,b,c = k*ap,k*bp,k*cp
- 				if a> length_max or b > length_max:
+ 				if max(a,b) > length_max:
  					break
- 				output.append((a,b,c))
+ 				output.append((a,b,c,k,m,n))
  				k+=1
-
-
-
-
-
  	return output
 
+def factors(n):
+	return [x for x in range(1,n+1) if n % x ==0]
 
-output = pythagoreantripples(100)
 
+
+
+
+
+q = 3*5*7
 for x in output:
-	if x[0]==12 or x[1]==12:
+	if x[0]==q or x[1]==q:
 		print x

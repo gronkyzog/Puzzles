@@ -20,6 +20,3 @@ for k in range(len(I)-1):
 print sum(A0)
 
 print (d[1]-d[0]+1)*(d[0]+1)-1
-
-
-
