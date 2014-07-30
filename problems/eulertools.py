@@ -14,7 +14,7 @@ def primeseive(n):
 		output[k] = 1
 
 	for s in range(3,(n/2)+1,2):
-		for k in xrange(2*s,n+1,s):
+		for k in xrange(3*s,n+1,2*s):
 			output[k] = 1
 	return [i for i,x in enumerate(output) if x==0 and i>=2]
 
@@ -29,3 +29,25 @@ def factorise(P,x):
 			r = k
 			output.append(p)
 	return output
+
+
+def gcd(a,b):
+    while b != 0:
+        a,b = b,a % b
+    return a
+
+def extended_gcd(a, b):
+    x,lastx = 0,1
+    y,lasty = 1,0
+    while b != 0:
+        quotient,_ = divmod(a,b)
+        a, b = b, a % b
+        (x, lastx) = (lastx - quotient*x, x)
+        (y, lasty) = (lasty - quotient*y, y)       
+    return (lastx, lasty)
+
+def invmod(a,p):
+    x,y = extended_gcd(a,p)
+    if  x*a + y*p != 1:
+        raise Exception('No inverse: %d mod %d' %(a,p))
+    return x
