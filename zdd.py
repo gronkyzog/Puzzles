@@ -36,50 +36,46 @@ def buildZDD(F):
 
 		
 
-
 def Symmetric(k,X,U):
-	if k ==0 and len(U)==0:
+	if k==0 and len(U) == 0:
 		val = tuple([-1,1,1])
 		head = hash(val)
 		return {head:val},head
 
-	elif k>0 and len(X)==0:
+	elif (k!=0 and len(U) == 0) or k < 0:
 		val = tuple([-1,0,0])
 		head = hash(val)
 		return {head:val},head
 
 	else:
 		v = min(U)
-		U0 = [u for u in U if u!=v]
 		X0 = [u for u in X if u!=v]
+		U0 = [u for u in U if u!=v]	
 		if v in X:
-			if k > 0:
-				Zdd0,head0 = Symmetric(k,U0,X0)
-				Zdd1,head1 = Symmetric(k-1,U0,X0)
-
-				val = tuple([v,head0,head1])
-				head = hash(val) 
-				Zdd = {head:val}
-				Zdd.update(Zdd0)
-				Zdd.update(Zdd1)
-				return Zdd,head
-			else:
-				Zdd0,head0 = Symmetric(k,U0,X0)
-				
-				val = tuple([v,head0,head0])
-				head = hash(val) 
-				Zdd = {head:val}
-				Zdd.update(Zdd0)
-				return Zdd,head				
-
-				
-		else:
-			Zdd0,head0 = Symmetric(k,X0,U0) 
-			val = tuple([v,head0,head0])
-			head = hash(val) 
+			Zdd0,head0 = Symmetric(k,X0,U0)
+			Zdd1,head1 = Symmetric(k-1,X0,U0)		
+			val = tuple([v,head0,head1])
+			head = hash(val)
 			Zdd = {head:val}
-			Zdd.update(Zdd0)		
-			return Zdd,head	
+			Zdd.update(Zdd0)
+			Zdd.update(Zdd1)
+			return Zdd,head
+
+		else:
+			Zdd0,head0 = Symmetric(k,X0,U0)	
+			val = tuple([v,head0,head0])
+			head = hash(val)
+			Zdd = {head:val}
+			Zdd.update(Zdd0)
+			return Zdd,head
+
+
+
+
+
+
+
+
 
 
 
@@ -100,12 +96,11 @@ def cycle(row):
 			yield temp
 
 
-ZDD,head = Symmetric(1,[1,2,3],[1,2,3])
+ZDD,head = Symmetric(3,range(16),range(160))
 ZDD[0] = ZDD[head] 
 
 print len(ZDD)
-for i,x in enumerate(cycle(0),start=1):
-	print i,x
+
 
 
 
