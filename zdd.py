@@ -4,6 +4,11 @@
 
 #def S(k,U,X):
 
+## to do.
+## need to chang the construction of the head
+## ZDD[0] points to the head's key. its always an integer.
+
+
 import itertools
 
 
@@ -40,12 +45,12 @@ def Symmetric(k,X,U):
 	if k==0 and len(U) == 0:
 		val = tuple([-1,1,1])
 		head = hash(val)
-		return {0:val,head:val},head
+		return {0:head,head:val},head
 
 	elif (k!=0 and len(U) == 0) or k < 0:
 		val = tuple([-1,0,0])
 		head = hash(val)
-		return {0:val,head:val},head
+		return {0:head,head:val},head
 
 	else:
 		v = min(U)
@@ -71,24 +76,74 @@ def Symmetric(k,X,U):
 			return Zdd,head
 
 
+def pophead(ZDD):
+	ZDD0 = dict(ZDD)
+	ZDD1 = dict(ZDD)
+	head = hash(ZDD[0])
+
+	v,lo,hi = ZDD[head]
+	
+	ZDD0.pop(head)
+	ZDD1.pop(head)
+	ZDD0[0] = hash(ZDD[lo])
+	ZDD1[0] = hash(ZDD[hi])
+	return ZDD0,ZDD1
+
+
+
+
+
+
+
+
+
+
 
 def mergeAnd(F,G):
 	Zdd = {}
-	v,_,_ = F[0]
-	w = G[0]
+	headF = F[hash(F[0])]
+	headG = G[hash(G[0])]
+	v,w = headF[0],headG[0]
 	if v==w:
-		headF = F[0]
-		headG = F[0]
-
-		F0 = {k:v for k,v in F.items() if k[0]!=v}
-		G0 = {k:v for k,v in G.items() if k[0]!=v}
-		val = tuple([v,head0,head0])
+		F0,F1= pophead(F)
+		G0,G1= pophead(G)
+		H0 = mergeAnd(F0,G0)
+		H1 = mergeAnd(F1,G1)
+		val = tuple([v,hash(H0[0]),hash(H1[0])])
 		head = hash(val)
 		Zdd = {head:val}
-		Zdd.update(F0)
-		Zdd.update(G0)
+		Zdd.update(H0)
+		Zdd.update(H1)
 		Zdd[0] = head
-		return Zdd,head
+		return Zdd
+	elif v<w:
+		F0,F1= pophead(F)
+		#H = mergeAnd(F0,G) for or
+		H = mergeAnd(F,G)  # for and
+		val = tuple([v,hash(H[0]),hash(F1[0])])
+		head = hash(val)
+		Zdd = {head:val}
+		Zdd.update(H)
+		Zdd.update(F1)
+		Zdd[0] = head
+		return Zdd
+
+	else:
+		G0,G1= pophead(G)
+		#H = mergeAnd(F0,G) for or
+		H = mergeAnd(F,G)  # for and
+		val = tuple([v,hash(H[0]),hash(G1[0])])
+		head = hash(val)
+		Zdd = {head:val}
+		Zdd.update(H)
+		Zdd.update(F1)
+		Zdd[0] = head
+		return Zdd
+
+
+		
+
+
 
 
 
@@ -124,8 +179,10 @@ ZDD1[0] = ZDD1[head1]
 ZDD2,head2 = Symmetric(2,[1,2,8,9,10],[1,2,3,4,5,6,7,8,9,10])
 ZDD2[0] = ZDD2[head2] 
 
+ZDD3 = mergeAnd(ZDD1,ZDD2)
 
-for x in cycle(ZDD1,0):
+
+for x in cycle(ZDD3,0):
 	print x
 
 
