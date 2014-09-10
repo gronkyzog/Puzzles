@@ -39,6 +39,19 @@ def Symmetric(k,X,U,hashMap=None,ZDD=None):
 		else:
 			return head
 
+	elif k > len(X):
+		val = FalseNode
+		head = hash(val)
+		hashMap[key] = head
+		ZDD[head] = val
+		ZDD[0] = head
+		if exportflag:
+			return ZDD
+		else:
+			return head
+
+
+
 	elif (k!=0 and len(U) == 0) or k < 0:
 		val = FalseNode
 		head = hash(val)
@@ -123,7 +136,7 @@ def cycle(ZDD,row):
 
 
 
-ZDD = Symmetric(9,range(500),range(500))
+ZDD = Symmetric(2,range(50),range(50))
 print len(ZDD)
 
 for k,v in ZDD.items():
@@ -132,8 +145,8 @@ for k,v in ZDD.items():
 	if v[2]==hash(FalseNode):
 		print k,v
 
-# for i,x in enumerate(cycle(ZDD,0),start=1):
-#  	print i,x
+for i,x in enumerate(cycle(ZDD,0),start=1):
+ 	print i,x
 
 
 
