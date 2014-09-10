@@ -17,6 +17,7 @@ TrueNode = tuple([-1,1,1])
 FalseNode = tuple([-1,0,0])
 
 
+
 def Symmetric(k,X,U,hashMap=None,ZDD=None):
 	if hashMap == None:
 		hashMap = {}
