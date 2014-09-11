@@ -143,6 +143,7 @@ def ZDDIntersect(F,G):
 				return head		
 
 			elif fhash == TrueHash:
+				# right node is falseNode
 				head0 = intersect(fhash,ghash0)
 				head1 = FalseHash
 				val = tuple([w,head0,head1])
@@ -153,6 +154,7 @@ def ZDDIntersect(F,G):
 
 
 			elif ghash == TrueHash:
+				# right node is falseNode
 				head0 = intersect(fhash0,ghash)
 				head1 = FalseHash
 				val = tuple([v,head0,head1])
@@ -266,7 +268,7 @@ F1 = [tuple(x) for x in cycle(ZDD1,0)]
 F2 = [tuple(x) for x in cycle(ZDD2,0)]
 F3 = [tuple(x) for x in cycle(ZDD3,0)]
 
-F4 = [x for x,y in F1,F2 if x==y]
+
 
 
 
