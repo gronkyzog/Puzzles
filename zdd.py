@@ -10,11 +10,10 @@
 
 import itertools
 
-
-F = [f for f in itertools.combinations(range(10),4)]
-
 TrueNode = tuple([-1,1,1])
 FalseNode = tuple([-1,0,0])
+TrueHash = hash(TrueNode)
+FalseHash = hash(FalseNode)
 
 
 
@@ -113,6 +112,99 @@ def Symmetric(k,X,U,hashMap=None,ZDD=None):
 					return head
 
 
+def ZDDIntersect(F,G):
+	ZDD = {}
+	hashMap = {}
+	fhash,ghash = F[0],G[0]
+	def intersect(fhash,ghash):
+		key = tuple([fhash,ghash])
+		if key in hashMap:
+			head = hashMap[key]
+			return head
+
+		else:
+			f,g = F[fhash],G[ghash]
+			v,w = f[0],g[0]
+			fhash0,fhash1 = f[1],f[2]
+			ghash0,ghash1 = g[1],g[2]
+
+			if fhash == FalseHash or ghash == FalseHash:
+				val = FalseNode
+				head = FalseHash
+				hashMap[key] = head
+				ZDD[head] = val
+				return head
+
+			elif fhash == TrueHash and ghash == TrueHash:
+				val = TrueNode
+				head = TrueHash
+				hashMap[key] = head
+				ZDD[head] = val
+				return head		
+
+			elif fhash == TrueHash:
+				head0 = intersect(fhash,ghash0)
+				head1 = FalseHash
+				val = tuple([w,head0,head1])
+				head = hash(val)
+				hashMap[key] = head
+				ZDD[head] = val
+				return head	
+
+
+			elif ghash == TrueHash:
+				head0 = intersect(fhash0,ghash)
+				head1 = FalseHash
+				val = tuple([v,head0,head1])
+				head = hash(val)
+				hashMap[key] = head
+				ZDD[head] = val
+				return head					
+
+			else:
+				if v == w:
+					head0 = intersect(fhash0,ghash0)
+					head1 = intersect(fhash1,ghash1)
+					val = tuple([v,head0,head1])
+					head = hash(val)
+					hashMap[key] = head
+					ZDD[head] = val
+					return head		
+
+				elif v < w:
+					head0 = intersect(fhash0,ghash)
+					head1 = intersect(fhash1,ghash)
+					val = tuple([v,head0,head1])
+					head = hash(val)
+					hashMap[key] = head
+					ZDD[head] = val
+					return head		
+
+				else:
+					head0 = intersect(fhash,ghash0)
+					head1 = intersect(fhash,ghash1)
+					val = tuple([v,head0,head1])
+					head = hash(val)
+					hashMap[key] = head
+					ZDD[head] = val
+					return head	
+
+
+				
+
+
+
+
+
+
+	head = intersect(fhash,ghash)
+	ZDD[0] = hash(head)
+	return ZDD
+
+
+
+
+
 def cycle(ZDD,row):
 	if row ==0:
 		node,low,hi = ZDD[ZDD[0]]
@@ -133,20 +225,65 @@ def cycle(ZDD,row):
 			# the current node is included
 			yield x
 
+def  ZDDcountSolutions(ZDD):
+		hashMap = {}
+		headhash= ZDD[0]
+		def nsoultions(headhash):
+			head = ZDD[headhash]
+			if headhash in hashMap:
+				return hashMap[headhash]
+			
+
+			elif head == TrueNode:
+				hashMap[headhash] = 1
+				return 1
+			elif head == FalseNode:
+				hashMap[headhash] = 0
+				return 0
+
+			else:
+				lo = head[1]
+				hi = head[2]
+				total = nsoultions(lo)+nsoultions(hi) 
+				hashMap[headhash] = total
+				return total
+		return nsoultions(headhash)
 
 
 
-ZDD = Symmetric(2,range(50),range(50))
-print len(ZDD)
 
-for k,v in ZDD.items():
-	if k==0:
-		continue
-	if v[2]==hash(FalseNode):
-		print k,v
 
-for i,x in enumerate(cycle(ZDD,0),start=1):
- 	print i,x
+
+
+
+ZDD1 = Symmetric(5,range(10),range(10))
+ZDD2 = Symmetric(2,[2,3,5],[1,2,3,4,5])
+ZDD3 = ZDDIntersect(ZDD1,ZDD2)
+
+
+
+F1 = [tuple(x) for x in cycle(ZDD1,0)]
+F2 = [tuple(x) for x in cycle(ZDD2,0)]
+F3 = [tuple(x) for x in cycle(ZDD3,0)]
+
+F4 = [x for x,y in F1,F2 if x==y]
+
+
+
+
+
+
+
+# ZDD3 = ZDDIntersect(ZDD1,ZDD2)
+
+
+
+
+
+
+
+
+
 
 
 
