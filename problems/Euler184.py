@@ -16,8 +16,18 @@ for x in range(-r+1,r):
 				primitivepoints[key]=0
 			primitivepoints[key]+=1
 
+N = primitivepoints.values()
+a = sum(N)/2
+c = sum(n**2 for n in N)/2
+b = (a**2 - c)/2
 
-for v in primitivepoints.values():
-	print v
+
+sol = sum([b*n-a*n**2 + n**3 for n in N])/3
+
+print sol
+
+
+
+
 
 
