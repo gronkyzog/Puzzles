@@ -18,3 +18,6 @@ for i in range(1,101):
 
 	solution = temp
 	print i,len(solution),sum([v for k,v in solution.items() if k[0]== (nblack,nwhite)])
+
+
+print 83735848679360680
