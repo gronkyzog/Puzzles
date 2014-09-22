@@ -15,5 +15,3 @@ for p1 in P:
 		counter +=1
 
 print counter
-print 23378
-print 17427258
