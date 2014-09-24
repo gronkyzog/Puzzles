@@ -34,6 +34,41 @@ def primeseive2(n):
 	return [i for i,x in enumerate(output) if x==0 and i>=2]
 
 
+def factors(n,P=None):
+	if P is None:
+		P = primeseive(n)
+
+	output = [[] for i in xrange(n+1)]
+
+	for p in P:
+		for k in range(1,n):
+			q = p**k
+			if q > n:
+				break
+			for s in range(q,n+1,q):
+				output[s].append(p)
+
+	return output
+
+
+def mobius(n,P=None):
+	if P is None:
+		P = primeseive(n)
+	output = [1 for i in xrange(n+1)]
+	for p in P:
+		for s in range(p,n+1,p):
+				output[s] *= -1
+
+		q = p**2
+		if q <= n:
+			for s in range(q,n+1,q):
+				output[s]=0
+
+	output[1] = 1
+	return output
+
+
+
 
 
 
