@@ -14,5 +14,5 @@ for n in range(1,Q+1):
 	total += M[n]*(N/(n*n))
 
 print total
-print Q - total
+
 
