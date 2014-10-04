@@ -5,33 +5,34 @@ import eulertools
 
 def primeseive(lb,ub):
 	# find all primes in range [lb,ub] inclusive
-	A = [0 for x in xrange(lb,ub+1)]
+	N = ub-lb
+	A = [0 for x in xrange(N+1)]
 
 	p=2
 	k,r = divmod(lb,p)
+	if r!= 0:
+		k+=1
 	k = max(k,2)
-	for s in xrange(k*p,ub,p):
-		w = s-lb
-		A[w] = 1	
+	for s in xrange(k*p-lb,N+1,p):
+		A[s]=1
 
-	for p in range(3,ub+1,2):
-		#print p
+	pub = int(ub**0.5)
+	for p in xrange(3,pub+1,2):
 		k,r = divmod(lb,p)
-		k = max(k,3)
-		for s in xrange(k*p,ub+1,p):
-			print p,s
-			w = s-lb
-			A[w] = 1
+		if r!= 0:
+			k+=1
+		k = max(k,2)
+		#print p,k,lb,k*p,ub
+		offset = k*p-lb
+		for s in xrange(offset,N+1,p):
+			A[s]=1
 
-	return [lb+i for i,a in enumerate(A) if a==0]
-
-P = eulertools.primeseive(200)
-P = [p for p in P if p   >100]
-print primeseive(100,200)
-print P
+	return [i for i,a in enumerate(A,start=lb) if a==0]
+		
 
 
-
-
-
-
+row=8*10**6
+lb = row*(row+1)/2
+ub = (row+5)*(row+6)/2
+P = primeseive(lb,ub)
+print len(P)
