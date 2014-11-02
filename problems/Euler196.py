@@ -42,27 +42,16 @@ def primes_row(n):
 
 #A =  primes_row(7208785)
 
-
-def primes(n): 
-	if n==2: return [2]
-	elif n<2: return []
-	s=range(3,n+1,2)
-	mroot = n ** 0.5
-	half=(n+1)/2-1
-	i=0
-	m=3
-	while m <= mroot:
-		if s[i]:
-			j=(m*m-3)/2
-			s[j]=0
-			while j<half:
-				s[j]=0
-				j+=m
-		i=i+1
-		m=2*i+3
-	return [2]+[x for x in s if x]
+def prime_tripples(n):
+	L1,A1 = primes_row(n-2)
+	L2,A2 = primes_row(n-1)
+	L3,A3 = primes_row(n)
+	L4,A4 = primes_row(n+1)
+	L5,A5 = primes_row(n+2)
+	
+	A = [A1,A2,A3,A4,A5]
 
 
-print len(primes(10**7))
-#print len(eulertools.primeseive(10**7))
+prime_tripples(8)
+
 
