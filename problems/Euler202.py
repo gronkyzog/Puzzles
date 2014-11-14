@@ -1,24 +1,26 @@
-
-from eulertools import gcd,factorise,primeseive
+from itertools import combinations
+from eulertools import gcd,factorise,primeseive,product
 r = 12017639147
-r = 1000001
-r = 1009
+#r = 1000001
 
 h = (r+3)/2
 P = primeseive(int(h**0.5)+1)
-F = factorise(P,h)
+F = set(factorise(P,h))
+N = len(F)
+total = int(h/3)
+print h,N,F
+for k in range(1,N+1):
+	for X in combinations(F,k):
+		prod = product(X)
+		term = int(2*h/(3*prod))- int(h/(3*prod))
+		sign =  (-1)**k
+		print X,k,sign,prod
+		total += sign*term
+		
+		
 
-offset = 3- (h % 3) 
+print total
+#print 80840
 
-print h,F
-counter = 0
-for i,c in enumerate(xrange(offset,r,3)):
-	x  = h+c
-	g = gcd(h,c)
-	if g==1:
-		counter +=1
 
-	print i,x,counter,c,g
-
-print counter
 
