@@ -1,13 +1,18 @@
 from math import log
 
-def isperfectsquare(x):
-	s = int(round(x**0.5))
-	return s**2 == x
+
+counter = 0
+ratio = 0
+for x in xrange(2,10**6):
+	k = ((2*x -1)**2 - 1)/4
+	t = log(x,2)
 
 
+	if abs(round(t,1)-t) < 1e-10:
+		counter +=1
 
+	if counter*12345 < (x-1):
+		print x-1,x,k,t,counter,(1.*counter)/(x-1)
+		break
+print k
 
-for k in range(100):
-	ps = isperfectsquare(4*k+1)
-	t = log((1+ (4*k+1)**0.5)/2,2)
-	print k,4*k+1,(4*k+1)**0.5,t,2**t
