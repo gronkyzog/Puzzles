@@ -1,20 +1,45 @@
-# import math
-def gauss_circle(r):
-	total = 1+4*int(r)
-	r2 = r**2
-	for i in xrange(1,int(r)):
-		total += 4*int((r2-i**2)**0.5)
+import math
 
+def int_root(n):
+	# find the biggest x such that x**2 < n
+	x = int(n**0.5)
+	x2 = x**2
+	if x2==n:
+		return x-1
+	elif x2 < n:
+		while x2 <n:
+			x+=1
+			x2 = x**2
+		return x-1
+
+	else:
+		while x2 >n:
+			x-=1
+			x2 = x**2
+		return x	
+
+
+
+def gauss_circle(r2):
+	# find all points inside (not on) a boundard of radius r, specified as r2= r**2
+	r = int_root(r2)
+	total = 1+4*r
+	for i in range(1,r+1):
+		if i% 1000000==0:
+			print i
+		total += 4*int_root((r2-i*i))
+	
 	return total
 
+def f(r):
+	return 3*r**2/2 -r/4 +1+ gauss_circle(r**2/32)
 
 
-# def f(r):
-# 	return (3*r**2)/2 - (r/4) + 1 +  gauss_circle((2**0.5*r)/8)
+print f(10**9)
 
 
-# #Generate all points and test for negative products
-# for r in range(8,1000,8):
+#Generate all points and test for negative products
+# for r in xrange(8,1000,8):
 # 	O = (0,0)
 # 	C = (r/4,r/4)
 # 	counter1 = 0
@@ -36,28 +61,5 @@ def gauss_circle(r):
 # 				elif dot3 < 0:
 # 					counter3+=1
 # 					#print '%d,%d' % (x,y)
-
-# 	print r,counter1+counter2+counter3,f(r)
-
-
-print gauss_circle(100**0.5)
-
-
-
-# r = 10**9
-# old_tot=0
-# printflag = False
-# counter = 0
-# for i in xrange(10**8,r+1):
-# 	tot = (r**2)/(4*i+1)  - (r**2)/(4*i+3)
-# 	if tot == old_tot:
-# 		counter +=1
-# 		printflag = True
-# 	else:
-# 		if printflag:
-# 			print i,tot,counter
-# 		counter=0
-# 		printflag = False
-
-# 	old_tot = tot
+# 	print '%d,%d,%d' %(r,counter1+counter2+counter3,f(r))
 
