@@ -1,6 +1,6 @@
 import numpy
 import math
-def primeseive(n):
+def primesieve(n):
     # return all primes <= n
     A = numpy.zeros([n+1])
     for i in range(2,n+1):
@@ -14,6 +14,6 @@ def primeseive(n):
 
 n = 10001 
 max_size = int(n*math.log(n*math.log(n)))
-A = primeseive(max_size)
+A = primesieve(max_size)
 print len(A),
 print A[n-1],max_size

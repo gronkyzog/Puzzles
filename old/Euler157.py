@@ -9,7 +9,7 @@ def product(A):
 	for a in A:
 		output *= a
 	return output
-def primeseive(n):
+def primesieve(n):
     # return all primes <= n
     A = [0 for i in range(0,n+1)]
     for i in range(4,n+1,2):
@@ -58,7 +58,7 @@ def divisors(n,P):
 	
 
 total = 0
-P = primeseive(1000000)
+P = primesieve(1000000)
 for s in range(1,10):
 	solutions = set()
 	n = 10**s

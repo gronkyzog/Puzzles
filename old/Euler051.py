@@ -26,7 +26,7 @@ def build_number(x,q=10):
 	return sum([a*q**i for i,a in enumerate(A)])
 
 
-def primeseive(n):
+def primesieve(n):
     # return all primes <= n
     A = numpy.zeros([n+1])
     for i in range(2,n+1):
@@ -38,7 +38,7 @@ def primeseive(n):
     return [i for i in range(2,n+1) if A[i]==0]
 
 n=6
-P = primeseive(10**n)
+P = primesieve(10**n)
 dP = [extract_digits(p) for p in P]
 dP = [p for p in dP if len(p)==n]
 

@@ -17,7 +17,7 @@ q = 10**6
 nprimes =   int(math.ceil(math.log(2.*(q-1) + 1.)/math.log(3.)))
 
 
-def primeseive(n):
+def primesieve(n):
     # return all primes <= n
     A = [0 for i in range(0,n+1)]
     for i in range(4,n+1,2):
@@ -47,7 +47,7 @@ def product(A):
 combin = 4*10**6
 nprimes = int(math.ceil(math.log(2*(combin-1) +1)/math.log(3)))
 print nprimes
-P = primeseive(1000)[:nprimes]
+P = primesieve(1000)[:nprimes]
 
 
 

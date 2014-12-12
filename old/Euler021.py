@@ -44,7 +44,7 @@ def d(P,x):
 	A = allfactors(F)
 	return sum(A) -x 
 
-def primeseive(n):
+def primesieve(n):
     # return all primes <= n
     A = numpy.zeros([n+1])
     for i in range(2,n+1):
@@ -56,7 +56,7 @@ def primeseive(n):
     return [i for i in range(2,n+1) if A[i]==0]
 
 
-P = primeseive(10000)
+P = primesieve(10000)
 
 
 for x in range(2,10001):

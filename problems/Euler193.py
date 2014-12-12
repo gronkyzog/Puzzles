@@ -2,7 +2,7 @@ import itertools
 import eulertools
 Q = 2**25
 N = Q**2
-P = eulertools.primeseive(Q)
+P = eulertools.primesieve(Q)
 
 print 'Primes Generated'
 M = eulertools.mobius(Q,P)

@@ -1,6 +1,6 @@
 import numpy
 
-def primeseive(n):
+def primesieve(n):
     # return all primes <= n
     A = numpy.zeros([n+1])
     for i in range(2,n+1):
@@ -12,7 +12,7 @@ def primeseive(n):
     return [i for i in range(2,n+1) if A[i]==0]
 
 n = 10**4
-P = primeseive(n)
+P = primesieve(n)
 A = [0 for i in range(0,n)]
 
 for p in P:

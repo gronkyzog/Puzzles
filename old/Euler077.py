@@ -1,7 +1,7 @@
 import numpy
 
 
-def primeseive(n):
+def primesieve(n):
     # return all primes <= n
     A = [0 for i in range(0,n+1)]
     for i in range(4,n+1,2):
@@ -17,7 +17,7 @@ def primeseive(n):
 
 
 def f(N,K):
-	primes = set(primeseive(K))
+	primes = set(primesieve(K))
 	output = numpy.zeros([N+1,K+1],dtype = numpy.int)
 	output[:,0]=0
 	output[0,:]= 1

@@ -3,7 +3,7 @@ import eulertools
 
 
 
-def primeseive(lb,ub):
+def primesieve(lb,ub):
 	# find all primes in range [lb,ub] inclusive
 	N = ub-lb
 	A = [1 for x in xrange(N+1)]
@@ -36,7 +36,7 @@ def primeseive(lb,ub):
 def primes_row(n):
 	lb = n*(n-1)/2 +1
 	ub = lb+n-1
-	return primeseive(lb,ub)
+	return primesieve(lb,ub)
 
 #S(5678027) + S(7208785)
 

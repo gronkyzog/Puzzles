@@ -1,9 +1,9 @@
-from eulertools import primeseive
+from eulertools import primesieve
 
 
 N = 10**9
 Q = 100
-P = primeseive(Q)
+P = primesieve(Q)
 
 prev = set([1])
 solution = [prev]

@@ -8,7 +8,7 @@ def product(A):
 		output *= a
 	return output
 
-def primeseive(n):
+def primesieve(n):
 	output = [0 for i in xrange(n+1)]
 	for k in range(4,n+1,2):
 		output[k] = 1
@@ -23,7 +23,7 @@ def primeseive(n):
 	return [i for i,x in enumerate(output) if x==0 and i>=2]
 
 
-def primeseive2(n):
+def primesieve2(n):
 	output = [0 for i in xrange(n+1)]
 	for k in range(4,n+1,2):
 		output[k] = 1
@@ -36,7 +36,7 @@ def primeseive2(n):
 
 def factors(n,P=None):
 	if P is None:
-		P = primeseive(n)
+		P = primesieve(n)
 
 	output = [[] for i in xrange(n+1)]
 
@@ -53,7 +53,7 @@ def factors(n,P=None):
 
 def mobius(n,P=None):
 	if P is None:
-		P = primeseive(n)
+		P = primesieve(n)
 	output = [1 for i in xrange(n+1)]
 	for p in P:
 		for s in range(p,n+1,p):

@@ -1,10 +1,10 @@
 from itertools import combinations
-from eulertools import gcd,factorise,primeseive,product
+from eulertools import gcd,factorise,primesieve,product
 r = 12017639147
 #r = 1000001
 
 h = (r+3)/2
-P = primeseive(int(h**0.5)+1)
+P = primesieve(int(h**0.5)+1)
 F = set(factorise(P,h))
 N = len(F)
 total = int(h/3)

@@ -1,4 +1,4 @@
-def primeseive(n):
+def primesieve(n):
     # return all primes <= n
     A = [0 for i in range(0,n+1)]
     for i in range(4,n+1,2):
@@ -23,7 +23,7 @@ def cycle(q):
 
 
 
-P = [p for p in primeseive(10**6) if p > 5]
+P = [p for p in primesieve(10**6) if p > 5]
 
 counter = 0
 total = 0

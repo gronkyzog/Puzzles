@@ -1,5 +1,5 @@
 import numpy
-def primeseive(n):
+def primesieve(n):
     # return all primes <= n
     A = numpy.zeros([n+1])
     for i in range(2,n+1):
@@ -13,7 +13,7 @@ def primeseive(n):
 
 x = 600851475143
 rootx = int(x**0.5)
-A = primeseive(rootx)
+A = primesieve(rootx)
 print len(A)
 for z in A:
 	if  x % z ==0:

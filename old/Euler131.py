@@ -1,4 +1,4 @@
-def primeseive(n):
+def primesieve(n):
     # return all primes <= n
     A = [0 for i in range(0,n+1)]
     for i in range(4,n+1,2):
@@ -13,7 +13,7 @@ def primeseive(n):
     return [i for i in range(2,n+1) if A[i]==0]
 
 
-P = set(primeseive(10**6))
+P = set(primesieve(10**6))
 
 s = 1
 counter = 0

@@ -1,6 +1,6 @@
 import numpy
 
-def primeseive(n):
+def primesieve(n):
     # return all primes <= n
     A = numpy.zeros([n+1])
     for i in range(2,n+1):
@@ -21,7 +21,7 @@ def factors(P,n):
  	return A
 
 n = 10**6
-P = primeseive(n)
+P = primesieve(n)
 A = factors(P,n)
 for i in range(1,len(A)-4):
 	x0 = A[i]

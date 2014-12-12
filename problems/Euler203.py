@@ -1,4 +1,4 @@
-from eulertools import primeseive
+from eulertools import primesieve
 from math import factorial
 
 def nCr(n,r):
@@ -12,7 +12,7 @@ def containsFactor(x,F):
 
 N = 51
 
-P = primeseive(N)
+P = primesieve(N)
 F = [p**2 for p in P]
 output = set([nCr(n,r)  for n in range(0,N) for r in range(0,n+1)])
 

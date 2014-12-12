@@ -17,7 +17,7 @@ def shortest_length(P,x):
 
 
 def test():
-	P = eulertools.primeseive(100)
+	P = eulertools.primesieve(100)
 	solution = shortest_length(P,47547)
 	return solution
 

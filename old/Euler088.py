@@ -10,7 +10,7 @@ def product(A):
 	for a in A:
 		output *= a
 	return output
-def primeseive(n):
+def primesieve(n):
     # return all primes <= n
     A = [0 for i in range(0,n+1)]
     for i in range(4,n+1,2):
@@ -63,7 +63,7 @@ def cycle(A,n):
 				yield y
 
 
-P = primeseive(10**5)
+P = primesieve(10**5)
 A = factorise(P,10**5)
 D = [alldivisors(a) for a in A]
 

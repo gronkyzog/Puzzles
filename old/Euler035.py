@@ -1,6 +1,6 @@
 import numpy
 
-def primeseive(n):
+def primesieve(n):
     # return all primes <= n
     A = numpy.zeros([n+1])
     for i in range(2,n+1):
@@ -39,7 +39,7 @@ def build_number(x):
 	return sum([a*10**i for i,a in enumerate(A)])
 
 
-P  = set(primeseive(1000000))
+P  = set(primesieve(1000000))
 
 counter = 0
 for p in P:
