@@ -1,19 +1,90 @@
 import itertools
 
-def collide(a,b):
-	a1,a2 = a[0],a[1]
-	b1,b2 = b[0],b[1]
-	c1 = (max(a1[0],b1[0]),max(a1[1],b1[1]),max(a1[2],b1[2]))
-	c2 = (min(a2[0],b2[0]),min(a2[1],b2[1]),min(a2[2],b2[2]))
-	if c1[0] < c2[0] and c1[1] < c2[1] and c1[2] < c2[2]:
-		return (c1,c2)
+class point():
+	def __init__(self,x,y,z):
+		self.x = x
+		self.y = y
+		self.z = z
+
+	def __str__(self):
+		return '('+str(self.x)+','+str(self.y)+','+str(self.z)+')'
+
+class cuboid():
+	def __init__(self,a,b):
+		self.a = a
+		self.b = b
+		self.area = (b.x-a.x)*(b.y-a.y)*(b.z-a.z) 
+	def __str__(self):
+		return '('+str(self.a)+','+str(self.b)+')'
+
+def collide(cuboid1,cuboid2):
+	a =point(max(cuboid1.a.x,cuboid2.a.x),max(cuboid1.a.y,cuboid2.a.y),max(cuboid1.a.z,cuboid2.a.z))
+	b =point(min(cuboid1.b.x,cuboid2.b.x),min(cuboid1.b.y,cuboid2.b.y),min(cuboid1.b.z,cuboid2.b.z))
+	if a.x < b.x and a.y < b.y and a.z < b.z:
+		return cuboid(a,b)
 	else:
 		return None
+def collide_list(cuboids):
+	intersection = None
+	for c in cuboids:
+		if intersection == None:
+			intersection = c
+		else:
+			intersection = collide(intersection,c)
+			if intersection == None:
+				return None
+	return intersection
 
 
-def area(p):
-	p1,p2 = p[0],p[1]
-	return (p2[0]-p1[0])*(p2[1]-p1[1])*(p2[2]-p1[2])
+def split(cuboids):
+	minx = min([c.a.x for c in cuboids])
+	maxx = max([c.b.x for c in cuboids])
+
+	miny = min([c.a.y for c in cuboids])
+	maxy = max([c.b.y for c in cuboids])
+
+	minz = min([c.a.z for c in cuboids])
+	maxz = max([c.b.z for c in cuboids])
+
+	mpx = (minx+maxx)/2
+	mpy = (miny+maxy)/2
+	mpz = (minz+maxz)/2
+
+	distx = maxx- minx 
+	disty = maxy- miny
+	distz = maxz- minz
+
+	maxdist = max([distx,disty,distz])
+
+	if distx == maxdist:
+		cuboid1 = cuboid(point(minx,miny,minz),point(mpx,maxy,maxz))
+		cuboid2 = cuboid(point(mpx,miny,minz),point(maxx,maxy,maxz))
+	elif disty == maxdist:
+		cuboid1 = cuboid(point(minx,miny,minz),point(maxx,mpy,maxz))
+		cuboid2 = cuboid(point(minx,mpy,minz),point(maxx,maxy,maxz))
+	else:
+		cuboid1 = cuboid(point(minx,miny,minz),point(maxx,maxy,mpz))
+		cuboid2 = cuboid(point(minx,miny,mpz),point(maxx,maxy,maxz))
+
+	output1 = []
+	output2 = []
+	for c in cuboids:
+		c1 = collide(c,cuboid1)
+		c2 = collide(c,cuboid2)
+		if c1 is not None:
+			output1.append(c1)
+		if c2 is not None:
+			output2.append(c2)
+
+	output = []
+	if len(output1)>0:
+		output.append(output1)
+	if len(output2)>0:
+		output.append(output2)
+
+
+	return output
+
 
 
 def lagged_fibonachi():
@@ -33,93 +104,60 @@ def lagged_fibonachi():
 		x = f()
 		yield x
 
-def generate_cubes():
+def generate_cubes(n):
 	S = lagged_fibonachi()
 	cuboids = []
-	for i in range(50000):
+	for i in range(n):
 		x = S.next() % 10000
 		y = S.next() % 10000
 		z = S.next() % 10000
 		dx  = 1+(S.next() % 399)
 		dy  = 1+(S.next() % 399)
 		dz  = 1+(S.next() % 399)
-		cuboids.append(((x,y,z),(x+dx,y+dy,z+dz)))
-	return cuboids
+		pointa = point(x,y,z)
+		pointb = point(x+dx,y+dy,z+dz)
+		cuboids.append(cuboid(pointa,pointb))
 
-def split_cuboids(cuboids,axis):
-	minx = min([x[0][0] for x in cuboids])
-	maxx = max([x[1][0] for x in cuboids])
-
-	miny = min([x[0][1] for x in cuboids])
-	maxy = max([x[1][1] for x in cuboids])
-
-	minz = min([x[0][2] for x in cuboids])
-	maxz = max([x[1][2] for x in cuboids])
-	distx = maxx-minx
-	disty = maxy-miny
-	distz = maxz-minz
-	maxdist = max([distx,disty,distz])
-
-	if axis==0:
-		mp = minx + distx/2
-		cubeoid1 = (minx,miny,minz),(minx+mp,maxy,maxz)
-		cubeoid2 = (minx+mp,miny,minz),(maxx,maxy,maxz)
-	elif axis==1: 
-		mp = miny + disty/2
-		cubeoid1 = (minx,miny,minz),(maxx,miny+mp,maxz)
-		cubeoid2 = (minx,miny+mp,minz),(maxx,maxy,maxz)
-	else:
-		mp = minz + distz/2
-		cubeoid1 = (minx,miny,minz),(maxx,maxy,minz+mp)
-		cubeoid2 = (minx,miny,minz+mp),(maxx,maxy,maxz)
+	return cuboids 
 
 
-	output1 = []
-	output2 = []
-	for c in cuboids:
-		c1= collide(c,cubeoid1)
-		c2= collide(c,cubeoid2)
-
-		if c1 is None and c2 is None:
-			raise Exception('No Blocks')
-		
-		if c1 is not None:
-			output1.append(c1)
-
-		if c2 is not None:
-			output2.append(c2)
-	if len(output1)>0 and len(output2)>0:
-		return [output1,output2]
-	elif len(output1)>0:
-		return [output1]
-	else:
-		return [output2]
-
-
-def run():
-	split_list =[generate_cubes()]
-	for i in range(9):
-		print i,len(split_list),max([len(s) for s in split_list]),sum([sum([area(s) for s in cuboids]) for cuboids in split_list])
-		temp =[]
-		ExitFlag = True
-		for c in split_list:
-			if len(c)==0:
-				continue
-			if len(c) < 2:
-				temp.append(c)
+def partition_cuboids():
+	split_cuboids = [generate_cubes(50000)]
+	for i in range(40):
+		temp = []
+		exitFlag  = True
+		for c in split_cuboids:
+			if len(c) > 10:
+				exitFlag = False
+				temp.extend(split(c))
 			else:
-				ExitFlag = False
-				temp.extend(split_cuboids(c,i%3))
-		split_list = temp
-		if ExitFlag:
+				temp.append(c)
+		split_cuboids = temp
+		print i, len(split_cuboids)
+		if exitFlag:
 			break
+	print 
+	return split_cuboids
 
-	print len(split_list)
+def test_tupples(cuboids):
+	n = len(cuboids)
+	total = 0
+	for k in range(1,n+1):
+		sgn = -(-1)**k
+		for x in itertools.combinations(cuboids,k):
+			c = collide_list(x)
+			if c is not None:
+				total += sgn*c.area
+	return total
 
-	cuboids = split_list[-1]
-	print cuboids
+def test_tupples2(cuboids):
+	pass
 
-run()
+partitions = partition_cuboids()
+print len(partitions)
+total = 0
+for i,c in enumerate(partitions):
+	total +=test_tupples(c)
+print total
 
-
-
+print 328968937309

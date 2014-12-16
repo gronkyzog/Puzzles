@@ -145,3 +145,57 @@ def is_prime(n, _precision_for_huge_n=16):
  
 _known_primes = [2, 3]
 _known_primes += [x for x in range(5, 1000, 2) if is_prime(x)]
+
+
+def legendre_symbol(a,p):
+    z = pow(a,(p-1)/2,p)
+    return z
+
+def qssplit(p):
+    q=p-1
+    s=0
+    while q %2 ==0:
+        q /=2
+        s +=1
+    return q,s
+
+def modsqrt_prime(n,p):
+    if n%p==0:
+        return set([0])
+    if legendre_symbol(n,p) != 1:
+        return set([])
+    
+    if p ==2:
+        return set([n%2])
+
+    z=2
+    while legendre_symbol(z,p)==1:
+        z +=1
+
+    if p  % 4 == 3:
+        r = pow(n,(p+1)/4,p)
+        return set([r,p-r])
+
+    s,q = 0,p-1
+    while q % 2 ==0:
+        s = s+1
+        q  /=2
+
+    r = pow(n,(q+1)/2,p)
+    t = pow(n,q,p)
+    c = pow(z,q,p)
+    m = s
+    while  t != 1:
+        w = t
+        i = 0
+        while w!=1:
+            w = pow(w,2,p)
+            i +=1
+        b = pow(c,2**(m-i-1),p)
+        r = r*b % p 
+        t = (t*b*b) %p 
+        c = b*b
+        m = i
+
+    return set([r,p-r])
+
