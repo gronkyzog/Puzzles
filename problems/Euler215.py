@@ -1,16 +1,16 @@
 import itertools
 
-def iscrack(X):
+def iscrack(X,maxp):
 	xp = -1
 	for x in X:
-		if x == xp and x!=0:
+		if x == xp and x!=0 and x != maxp:
 			return True
 		xp = x
 	return False
 
 
-nrows = 3
-ncols = 9
+nrows = 10
+ncols = 32
 
 blocks = [2,3]
 
@@ -31,13 +31,15 @@ for i in range(200):
 				#print p,X,Y
 				total+=v
 
-			if max(Y) <= ncols and iscrack(Y)==False:
+			if max(Y) <= ncols and iscrack(Y,ncols)==False:
 				if Y not in temp:
 					temp[Y] = v
 				else:
 					temp[Y]+=v
 
 	solutions = temp
-	print i,len(solutions),sum(temp.values()),total,temp
+	print i,total
+	#print i,len(solutions),sum(temp.values()),total,temp
 	if len(temp)==0:
 		break
+print total
