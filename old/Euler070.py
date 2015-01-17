@@ -12,7 +12,7 @@ def freq_digits(x):
 	return tuple([Z.count(i) for i in range(0,10)])
 
 
-def primeseive(n):
+def primesieve(n):
     # return all primes <= n
     A = [0 for i in range(0,n+1)]
     for i in range(4,n+1,2):
@@ -45,7 +45,7 @@ def phi(x,F):
 
 n = 10**7
 rootn = int(n**0.5)
-P = primeseive(2*rootn)
+P = primesieve(2*rootn)
 nP = len(P)
 print 'generation complete %d' %nP
 print 'Assuming solition is product of two primes'

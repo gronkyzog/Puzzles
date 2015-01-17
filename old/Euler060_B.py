@@ -47,7 +47,7 @@ def primeCombin(Y,x,P):
 
 	return True
 
-def primeseive(n):
+def primesieve(n):
     # return all primes <= n
     A = [0 for i in xrange(0,n+1)]
 
@@ -64,8 +64,8 @@ def primeseive(n):
                 A[j]=1
     return [i for i in xrange(2,n+1) if A[i]==0]
 
-SP = set(primeseive(10**8))
-P = primeseive(10**4)
+SP = set(primesieve(10**8))
+P = primesieve(10**4)
 print 'Generating Primes Complete'
 print len(P),len(SP)
 n = len(P)

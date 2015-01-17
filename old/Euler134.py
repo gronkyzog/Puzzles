@@ -1,4 +1,4 @@
-def primeseive(n):
+def primesieve(n):
     # return all primes <= n
     A = [0 for i in range(0,n+1)]
     for i in range(4,n+1,2):
@@ -34,7 +34,7 @@ def invmod(a,p):
         raise Exception('No inverse: %d mod %d' %(a,p))
     return x
 
-P = [p for p in primeseive(1010000) if p >= 5]
+P = [p for p in primesieve(1010000) if p >= 5]
 n = len(P)
 total = 0
 for i in range(1,n):

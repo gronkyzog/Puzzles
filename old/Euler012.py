@@ -1,6 +1,6 @@
 from numpy import product
 
-def primeseive(n):
+def primesieve(n):
     # return all primes <= n
     A = [0 for i in range(0,n+1)]
     for i in range(2,n+1):
@@ -30,7 +30,7 @@ def factor_over_base(P,x):
 
  
 
-P = primeseive(8751)  #  set this to a large number then rebalance to root the minimum value 
+P = primesieve(8751)  #  set this to a large number then rebalance to root the minimum value 
 
 
 maxfactors = 0

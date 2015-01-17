@@ -2,7 +2,7 @@ import eulertools
 
 
 def test():
-	P =set(eulertools.primeseive(10000))
+	P =set(eulertools.primesieve(10000))
 	max_counter = 0
 	for a in range(-100,1000):
 		for b in range(-100,1000):

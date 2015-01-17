@@ -45,7 +45,7 @@ def d(P,x):
 
 
 def test():
-	P = eulertools.primeseive(10000)
+	P = eulertools.primesieve(10000)
 	sol = 0
 	for x in range(2,10001):
 		if d(P,d(P,x))==x and x!= d(P,x):

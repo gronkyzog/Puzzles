@@ -1,5 +1,5 @@
 
-def primeseive(n):
+def primesieve(n):
     # return all primes <= n
     A = [0 for i in range(0,n+1)]
     for i in range(4,n+1,2):
@@ -29,7 +29,7 @@ def phi(x,F):
 		total = (total*(a-1))/a
 	return total
 
-P = primeseive(10**6)
+P = primesieve(10**6)
 A = bulk_phi(P,10**6)
 
 max_r = 0

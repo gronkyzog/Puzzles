@@ -1,4 +1,4 @@
-def primeseive(n):
+def primesieve(n):
     # return all primes <= n
     A = [0 for i in range(0,n+1)]
     for i in range(4,n+1,2):
@@ -27,7 +27,7 @@ def factors(n,P):
     return A
 
 
-P = primeseive(10**5)
+P = primesieve(10**5)
 FS = factorsieve(10**5)
 F = factors(10**5,P)
 

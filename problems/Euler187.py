@@ -1,7 +1,7 @@
 import eulertools
 N = 10**8
 
-P = eulertools.primeseive(N)
+P = eulertools.primesieve(N)
 counter = 0
 print 'Go'
 for p1 in P:

@@ -1,5 +1,5 @@
 import numpy
-def primeseive(n):
+def primesieve(n):
     # return all primes <= n
     A = numpy.zeros([n+1])
     for i in range(2,n+1):
@@ -42,7 +42,7 @@ def cycle(A,k):
 
 
 
-A = primeseive(10000)
+A = primesieve(10000)
 A = set([a for a in A if a > 1000])
 group = []
 while len(A)>0:

@@ -1,5 +1,5 @@
 import itertools
-def primeseive(n):
+def primesieve(n):
     # return all primes <= n
     A = [0 for i in range(0,n+1)]
     for i in range(4,n+1,2):
@@ -15,7 +15,7 @@ def primeseive(n):
 
 n = 50000000
 rootn = int(n**0.5)
-P = primeseive(rootn)
+P = primesieve(rootn)
 print len(P)
 
 scoreMap = {}

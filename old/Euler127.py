@@ -1,4 +1,4 @@
-def primeseive(n):
+def primesieve(n):
     # return all primes <= n
     A = [0 for i in range(0,n+1)]
     for i in range(4,n+1,2):
@@ -14,7 +14,7 @@ def primeseive(n):
 
 
 def radicals(n):
-    P = primeseive(n)
+    P = primesieve(n)
     output = [1 for i in range(0,n+1)]
     for p in P:
         for s in range(p,n+1,p):

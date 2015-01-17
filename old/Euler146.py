@@ -47,7 +47,7 @@ def product(A):
         total *= a
     return total
 
-def primeseive(n):
+def primesieve(n):
     # return all primes <= n
     A = [0 for i in range(0,n+1)]
     for i in range(4,n+1,2):
@@ -65,7 +65,7 @@ def primeseive(n):
 
 
 nmax = 150*10**6
-P = primeseive(17)
+P = primesieve(17)
 prodP = product(P)
 C = [1,3,7,9,13,27]
 D = [d for d in range(2,27) if d not in C]

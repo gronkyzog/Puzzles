@@ -1,6 +1,6 @@
 import math
 
-def primeseive(n):
+def primesieve(n):
     # return all primes <= n
     A = [0 for i in range(0,n+1)]
     for i in range(4,n+1,2):
@@ -18,7 +18,7 @@ def primeseive(n):
 q = 10**6
 nprimes =   int(math.ceil(math.log(2.*(q-1) + 1.)/math.log(3.)))
 
-P = primeseive(100)[:nprimes]
+P = primesieve(100)[:nprimes]
 
 def product(A):
 	total = 1

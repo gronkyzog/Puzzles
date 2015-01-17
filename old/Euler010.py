@@ -1,5 +1,5 @@
 
-def primeseive(n):
+def primesieve(n):
     # return all primes <= n
     A = [0 for i in range(0,n+1)]
     for i in range(2,n+1):
@@ -11,6 +11,6 @@ def primeseive(n):
     return [i for i in range(2,n+1) if A[i]==0]
 
 
-print sum(primeseive(2000000))
+print sum(primesieve(2000000))
 
-print primeseive(10)
+print primesieve(10)

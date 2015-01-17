@@ -1,5 +1,5 @@
 import numpy
-def primeseive(n):
+def primesieve(n):
     # return all primes <= n
     A = numpy.zeros([n+1])
     for i in range(2,n+1):
@@ -13,7 +13,7 @@ def primeseive(n):
 
 
 n = 10**6
-P = primeseive(n)
+P = primesieve(n)
 q = len(P)
 sP = set(P)
 for i in xrange(3,1000,2):

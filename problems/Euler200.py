@@ -17,7 +17,7 @@ def prime_proof(x):
 				return False
 	return True
 
-P = eulertools.primeseive(10**6)
+P = eulertools.primesieve(10**6)
 
 
 
