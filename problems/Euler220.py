@@ -1,30 +1,27 @@
-
-aMap = 'cRdFR'
-bMap = 'LFcLd'
-
-def parse(instr):
-	direction = 0
-	output = []
-	for s in instr:
-		if s == 'L':
-			direction = (direction-1) %4
-		elif s == 'R':
-			direction = (direction+1) %4
-		elif s== 'F':
-			output.append(direction)
-
-	return output
-
-def parse2(numarr):
-	return (numarr.count(1)-numarr.count(3),numarr.count(0)-numarr.count(2))
+# For a given target,  perform repeated expanding by adding d + right rotated d
+# this gives the position for each 2**n steps
+# build all soutions 2^i  up to 2^(i-1) < x < 2**i
+# recurvisily solve each residual  solve(x) = dMap[2**i] - Rotate solve(2**i-x)
 
 
-D = 'Fa'
-for i in range(1,11):
-	D = D.replace('a',aMap).replace('b',bMap).replace('c','a').replace('d','b')
-	numarr = parse(D)
-	print i,parse2(numarr),D
-	
+def solve(x):
+	if x in pMap:
+		return pMap[x]
+	n= x.bit_length()
+	q = 2**n
+	r = q - x
+	(ax,ay) = pMap[q]
+	(bx,by) = solve(r)
+	return (ax-by,ay+bx)
 
-print parse2(numarr[:500])
-print 'Hello'
+
+D = (0,1)
+pMap = {}
+target = 10**12
+n = target.bit_length()
+for i in range(0,n+1):
+	pMap[2**i] = D
+	D = D[0]+D[1],D[1]-D[0]
+
+
+print '%d,%d' %(solve(target))
