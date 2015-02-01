@@ -7,6 +7,8 @@ import itertools
 import eulertools
 
 def factors(x,P):
+	# for a geven set of primes which divide x, generate all factors of x
+	
 	if x == 1:
 		return [1]
 	r = x
