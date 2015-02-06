@@ -65,7 +65,7 @@ for E in cycle(5,nprimes):
             print q,c,E
             minq = q
 
-print i
+#print i
         
 
 

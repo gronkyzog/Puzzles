@@ -69,8 +69,6 @@ def alexandrian2(n):
 				if r < q:
 					raise
 				A = p*q*r
-				if A == 342108:
-					print p,q,r
 				output.add(A)
 
 	return sorted(list(output))
